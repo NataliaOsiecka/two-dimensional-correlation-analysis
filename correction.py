@@ -10,6 +10,9 @@ import matplotlib.pyplot as plt
 
 from data import filecsv
 
+def removeCO2band(intensity_matrix):
+    
+
 def main():
     wavenumber, intensity = data.load_data(filecsv)
     #transpose intensity matrix for ploting the data
