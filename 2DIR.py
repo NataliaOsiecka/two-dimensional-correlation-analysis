@@ -10,6 +10,7 @@ Synchronous and asynchronous spectra are calculated.
 """
 import numpy
 import matplotlib.pyplot as plt
+import re
 
 filecsv = "6ba12_01.csv"
 filetxt = "6ba12_01.txt"
@@ -41,13 +42,32 @@ def higher_index(wavenumber_vector, number):
         if item < number:
             return wavenumber_list.index(item)
          
-#load temperature file
+#load temperature file, and use regular expresion (number.number) to get temperature data
 def load_temp(filename):
     with open(filename, 'r') as f:
         temp_data = f.read().splitlines()
-   # assert f.closed
-    return temp_data
+    assert f.closed
+
+    temperature = numpy.array([])
+    for item in temp_data:
+        if line_start_with_no(item):
+            #numpy.insert(temperature, get_temp_value(item))
+            temperature_value = get_temp_value(item)
+            print(temperature_value)
+            numpy.append(temperature, temperature_value)
+    return temperature
       
+def line_start_with_no(string_temp_data):
+    pattern = r"no"
+    if re.match(pattern, string_temp_data):
+        return True
+    else: 
+        return False
+        
+def get_temp_value(string_temp_data):
+    pattern = r'\b(\d+\.\d+)\b'
+    return re.findall(pattern, string_temp_data)
+    
 
 wavenumber, intensity = load_data(filecsv)
 
