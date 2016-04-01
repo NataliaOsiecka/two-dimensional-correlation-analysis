@@ -44,17 +44,17 @@ def higher_index(wavenumber_vector, number):
          
 #load temperature file, and use regular expresion (number.number) to get temperature data
 def load_temp(filename):
+    #reading all data from temperature file
     with open(filename, 'r') as f:
         temp_data = f.read().splitlines()
     assert f.closed
-
-    temperature = numpy.array([])
+    #extracting only information with temperature
+    temperature = []
     for item in temp_data:
         if line_start_with_no(item):
-            #numpy.insert(temperature, get_temp_value(item))
             temperature_value = get_temp_value(item)
-            print(temperature_value)
-            numpy.append(temperature, temperature_value)
+            for item in temperature_value:
+                temperature.append(float(item))
     return temperature
       
 def line_start_with_no(string_temp_data):
