@@ -21,7 +21,7 @@ def load_data(filename):
 #taking data only in the region of near infrared    
 def cut_data(intensities, wavenumbers):
     low_index = lower_index(wavenumbers,600)
-    high_index = len(list(wavenumbers)) - higher_index(wavenumbers,3500)
+    high_index = higher_index(wavenumbers,3500)
     new_intens = intensities[low_index:high_index,:]
     new_wavenu = wavenumbers[low_index:high_index]
     return new_intens, new_wavenu
@@ -37,7 +37,7 @@ def higher_index(wavenumber_vector, number):
     wavenumber_list = list(wavenumber_vector[::-1])
     for item in wavenumber_list:
         if item < number:
-            return wavenumber_list.index(item)
+            return len(list(wavenumber_vector)) - wavenumber_list.index(item)
          
 #load temperature file, and use regular expresion (number.number) to get temperature data
 def load_temp(filename):
