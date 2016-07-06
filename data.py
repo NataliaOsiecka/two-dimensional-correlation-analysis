@@ -9,7 +9,6 @@ Temperature information are reading from the txt file.
 import numpy
 import re
 
-filecsv = "6ba12_01.csv"
 filetxt = "6ba12_01.txt"
 
 #load IR data from the file
@@ -26,13 +25,14 @@ def cut_data(intensities, wavenumbers):
     new_wavenu = wavenumbers[low_index:high_index]
     return new_intens, new_wavenu
     
-    
+#finding the index of data of the lower value of wavenumber in near infrared regon   
 def lower_index(wavenumber_vector, number):
     wavenumber_list = list(wavenumber_vector)
     for item in wavenumber_list:
         if item > number:
             return wavenumber_list.index(item)
             
+#finding the index of data of the higer value of wavenumber in near infrared regon           
 def higher_index(wavenumber_vector, number):
     wavenumber_list = list(wavenumber_vector[::-1])
     for item in wavenumber_list:

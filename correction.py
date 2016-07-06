@@ -6,10 +6,8 @@ This is a temporary script file.
 """
 
 import data
-import matplotlib.pyplot as plt
 import numpy
 
-from data import filecsv
 from scipy import signal
 
 def removeCO2band(intensity_matrix, wavenumber_vector, wavenumberCO2_low = 2100, wavenumberCO2_high = 2500 ):
@@ -41,19 +39,7 @@ def baseline(intensity_matrix):
     return new_matrix
         
    
-wavenumber, intensity = data.load_data(filecsv)
-#transpose intensity matrix for ploting the data
-trans_int = intensity.T
 
-int_baseline = baseline(trans_int)
-intesity_without_co2 = removeCO2band(int_baseline, wavenumber)
-
-
-
-#ploting IR spectra
-for item in int_baseline:
-    plt.plot(wavenumber, item)
-plt.show()
 """
 def band_baseline(intensity_matrix, co2band_low, co2band_high):
     ab = numpy.zeros(shape=(len(intensity_matrix),2))
