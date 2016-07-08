@@ -2,7 +2,8 @@
 """
 Spyder Editor
 
-This is a temporary script file.
+Baseline correction are applied on IR spectra.
+CO2 band is subtract from spectra.
 """
 
 import data
