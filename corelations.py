@@ -29,8 +29,19 @@ def calculate_asynchronous_spectr(spectra):
     asynchronous = (1/spectra.shape[0])*numpy.dot(numpy.dot(numpy.transpose(dynamic_spectrum),hilbert_matrix), dynamic_spectrum)
     return asynchronous
 
-def calculate_moving_window_analysis(spectra, temperature):
-    pass
+def calculate_moving_window_analysis(spectra):
+    moving_window = numpy.zeros((spectra.shape[1]-1, spectra.shape[0]-2))
+    for it in range(spectra.shape[0]):
+        if it == 0:
+            pass
+        elif it == spectra.shape[0] - 1:
+            pass
+        else:
+            window = spectra[it-1:it+2]
+            syn = calculate_synchronous_spectra(window)
+            for i in range(spectra.shape[1]-1):
+                moving_window[i, it-1] = syn[i,i]
+    return moving_window
 
 def calculate_dynamic_spectra(spectra):
     matrix = spectra.sum(axis=1).reshape(spectra.shape[0],1)
