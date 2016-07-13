@@ -52,7 +52,7 @@ def load_temp(filename):
             temperature_value = get_temp_value(item)
             for item in temperature_value:
                 temperature.append(float(item))
-    return temperature
+    return temperature[::-1]
       
 def line_start_with_no(string_temp_data):
     pattern = r"no"
