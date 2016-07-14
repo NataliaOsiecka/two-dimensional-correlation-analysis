@@ -28,22 +28,30 @@ def contourplot(wavenumber, spectra):
         '#cc0000','#990000','#990000','#660000','#660000']
     else:
         syn_max = np.max(spectra)
-        levels = [syn_max * i/10 for i in range(11)]
-        colors = ['w','#ff6633','#ff0000','#ff0000','#cc0000','#cc0000','#990000',\
-        '#990000','#660000','#660000']
+        levels = [syn_max * i/20 for i in range(21)]
+        colors = ['#191970','#191970','#000080','#000080','#00008b','#00008b',\
+        '#0000cd','#0000cd','#0000ff','w','w','#ff6633','#ff0000','#ff0000','#cc0000',\
+        '#cc0000','#990000','#990000','#660000','#660000']
 
     syn_contourf = plt.contourf(X,Y,spectra, levels, colors=colors)
     plt.colorbar(syn_contourf)
-    plt.xlabel(r'Wavenumber [cm$^{-1}$]')
-    plt.ylabel(r'Wavenumber [cm$^{-1}$]')
+    plt.xlabel(r'Wavenumber [cm$^{-1}$]', fontsize = 16)
+    plt.xticks(fontsize = 14)
+    plt.ylabel(r'Wavenumber [cm$^{-1}$]', fontsize = 16)
+    plt.yticks(fontsize = 14)
     plt.grid()
     plt.show()
     
 def moving_window_plot(wavenumber, temperature, spectra):
     X, Y = np.meshgrid(wavenumber, temperature)
     plt.figure()
-    plt.contour(X, Y, np.transpose(spectra))
-    plt.xlabel(r'Wavenumber [cm$^{-1}$]')
-    plt.ylabel(r'Temperature [C$^{o}$]')
+    mw_max = np.max(spectra)
+    levels = [mw_max * i/100 for i in range(101)]
+    mv_contourf = plt.contourf(X, Y, np.transpose(spectra),levels)
+    plt.colorbar(mv_contourf)
+    plt.xlabel(r'Wavenumber [cm$^{-1}$]', fontsize = 16)
+    plt.xticks(fontsize = 14)
+    plt.ylabel(r'Temperature [C$^{o}$]', fontsize = 16)
+    plt.yticks(fontsize = 14)
     plt.grid()
     plt.show()

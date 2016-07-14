@@ -64,3 +64,10 @@ def line_start_with_no(string_temp_data):
 def get_temp_value(string_temp_data):
     pattern = r'\b(\d+\.\d+)\b'
     return re.findall(pattern, string_temp_data)
+
+def get_submatrix(temp1, temp2, temperature, spectra):
+    temp = temperature[::-1]
+    index2 = len(temp) - temp.index(temp1)
+    index1 = len(temp) - temp.index(temp2)
+    sub_matrix = spectra[index1:index2, :]
+    return sub_matrix
