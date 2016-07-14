@@ -42,8 +42,8 @@ def contourplot(wavenumber, spectra):
 def moving_window_plot(wavenumber, temperature, spectra):
     X, Y = np.meshgrid(wavenumber, temperature)
     plt.figure()
-    plt.contour(X, Y, spectra)
-    plt.xlabel(r'Wavenumber [cm$^{-1}$')
-    plt.ylabel(r'Temperature [C$^{o}$')
+    plt.contour(X, Y, np.transpose(spectra))
+    plt.xlabel(r'Wavenumber [cm$^{-1}$]')
+    plt.ylabel(r'Temperature [C$^{o}$]')
     plt.grid()
     plt.show()

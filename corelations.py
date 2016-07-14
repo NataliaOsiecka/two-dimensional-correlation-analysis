@@ -7,9 +7,6 @@ Created on Fri Jul  8 15:37:59 2016
 
 import numpy
 
-import data
-import correction as crt
-
 def calculate_synchronous_spectra(spectra):
     dynamic_spectrum = calculate_dynamic_spectra(spectra)
     synchronous = (1/spectra.shape[0])*numpy.dot(numpy.transpose(dynamic_spectrum), dynamic_spectrum)
@@ -50,16 +47,3 @@ def calculate_hilbert_matrix(number_of_spectra):
             hil[j,i] = -hil[i,j]
     return hil
     
-filecsv = "6ba12_01.csv"
-filetxt = "6ba12_01.txt"
-
-wavenumber, intensity = data.load_data(filecsv)
-#transpose intensity matrix for ploting the data
-trans_int = intensity.T
-
-int_baseline = crt.baseline(trans_int)
-intensity_without_co2 = crt.removeCO2band(int_baseline, wavenumber)
-
-temperature = data.load_temp(filetxt)
-
-moving_window_analysis, mw_temperature = calculate_moving_window_analysis(intensity_without_co2, temperature)
