@@ -17,7 +17,7 @@ def contourplot(wavenumber, spectra):
     colors = []
     X, Y = np.meshgrid(wavenumber, wavenumber)
     plt.figure()
-
+#usually positive peaks are red and negative peaks are blue on syn and asyn spectra
     if np.min(spectra)<0:
         syn_min = np.min(spectra)
         syn_max = np.max(spectra)
@@ -39,4 +39,11 @@ def contourplot(wavenumber, spectra):
     plt.grid()
     plt.show()
     
-#def moving_window_plot(wavenumber, tempearature, spectra):
+def moving_window_plot(wavenumber, temperature, spectra):
+    X, Y = np.meshgrid(wavenumber, temperature)
+    plt.figure()
+    plt.contour(X, Y, spectra)
+    plt.xlabel(r'Wavenumber [cm$^{-1}$')
+    plt.ylabel(r'Temperature [C$^{o}$')
+    plt.grid()
+    plt.show()

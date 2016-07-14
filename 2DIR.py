@@ -30,4 +30,6 @@ synchronous_spectra = cor.calculate_synchronous_spectra(intensity_without_co2)
 asynchronous_spectra = cor.calculate_asynchronous_spectra(intensity_without_co2)
 
 #pl.irplot(wavenumber,intensity_without_co2)
-pl.contourplot(wavenumber, synchronous_spectra)
+#pl.contourplot(wavenumber, synchronous_spectra)
+#pl.contourplot(wavenumber, asynchronous_spectra)
+pl.moving_window_plot(wavenumber, mw_temperature, moving_window_analysis)

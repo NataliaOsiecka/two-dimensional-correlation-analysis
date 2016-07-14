@@ -7,6 +7,8 @@ Created on Fri Jul  8 15:37:59 2016
 
 import numpy
 
+import data
+import correction as crt
 
 def calculate_synchronous_spectra(spectra):
     dynamic_spectrum = calculate_dynamic_spectra(spectra)
@@ -20,7 +22,7 @@ def calculate_asynchronous_spectra(spectra):
     return asynchronous
 
 def calculate_moving_window_analysis(spectra, temperature):
-    moving_window = numpy.zeros((spectra.shape[1]-1, spectra.shape[0]-2))
+    moving_window = numpy.zeros((spectra.shape[1], spectra.shape[0]-2))
     mw_temperature = numpy.zeros((moving_window.shape[1]))
     for it in range(spectra.shape[0]):
         if it == 0:
@@ -31,13 +33,13 @@ def calculate_moving_window_analysis(spectra, temperature):
             window = spectra[it-1:it+2]
             mw_temperature[it-1] = numpy.sum(temperature[it-1:it+2])/3
             syn = calculate_synchronous_spectra(window)
-            for i in range(spectra.shape[1]-1):
+            for i in range(spectra.shape[1]):
                 moving_window[i, it-1] = syn[i,i]
     return moving_window, mw_temperature
 
 def calculate_dynamic_spectra(spectra):
-    matrix = spectra.sum(axis=1).reshape(spectra.shape[0],1)
-    dynamic_spectrum = spectra - (1/spectra.shape[0])*matrix*numpy.ones(spectra.shape[1])
+    matrix = spectra.sum(axis=0).reshape(spectra.shape[1],1)
+    dynamic_spectrum = spectra - numpy.transpose((1/spectra.shape[0])*matrix*numpy.ones(spectra.shape[0]))
     return dynamic_spectrum
     
 def calculate_hilbert_matrix(number_of_spectra):
@@ -48,3 +50,16 @@ def calculate_hilbert_matrix(number_of_spectra):
             hil[j,i] = -hil[i,j]
     return hil
     
+filecsv = "6ba12_01.csv"
+filetxt = "6ba12_01.txt"
+
+wavenumber, intensity = data.load_data(filecsv)
+#transpose intensity matrix for ploting the data
+trans_int = intensity.T
+
+int_baseline = crt.baseline(trans_int)
+intensity_without_co2 = crt.removeCO2band(int_baseline, wavenumber)
+
+temperature = data.load_temp(filetxt)
+
+moving_window_analysis, mw_temperature = calculate_moving_window_analysis(intensity_without_co2, temperature)
