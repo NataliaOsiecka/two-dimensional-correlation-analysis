@@ -47,3 +47,22 @@ def calculate_hilbert_matrix(number_of_spectra):
             hil[j,i] = -hil[i,j]
     return hil
     
+def calculate_power_spectra_syn(syn_spectra):
+    power_spectra = numpy.zeros((syn_spectra.shape[0],1))
+    for i in range(0, syn_spectra.shape[0]):
+        power_spectra[i,0] = syn_spectra[i,i]
+    return power_spectra
+    
+def calculate_power_spectra_mw(temperature, mw_temperature, mowing_window_spectra):
+    temperature_index = searching_for_temperature(temperature, mw_temperature)
+    print(temperature_index)
+    spectra = numpy.transpose(mowing_window_spectra)
+    power_spectra = numpy.zeros((spectra.shape[1],1))
+    for i in range(0, spectra.shape[1]):
+        power_spectra[i,0] = spectra[temperature_index, i]
+    return power_spectra
+
+def searching_for_temperature(temperature, mw_temperature):
+    x = numpy.where(mw_temperature <= temperature)[0]
+    return x[-1]
+    
