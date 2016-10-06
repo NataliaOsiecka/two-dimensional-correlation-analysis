@@ -38,10 +38,12 @@ def contourplot(wavenumber, spectra):
 
     syn_contourf = plt.contourf(X,Y,spectra, levels, colors=colors)
     plt.colorbar(syn_contourf)
-    plt.xlabel(r'Wavenumber [cm$^{-1}$]', fontsize = 16)
+    plt.xlabel(r'Wavenumber (cm$^{-1}$)', fontsize = 16)
     plt.xticks(fontsize = 14)
-    plt.ylabel(r'Wavenumber [cm$^{-1}$]', fontsize = 16)
+    plt.xlim(3100,700)
+    plt.ylabel(r'Wavenumber (cm$^{-1}$)', fontsize = 16)
     plt.yticks(fontsize = 14)
+    plt.ylim(3100,700)
     plt.grid()
     plt.show()
     
@@ -52,10 +54,12 @@ def moving_window_plot(wavenumber, temperature, spectra):
     levels = [mw_max * i/100 for i in range(101)]
     plt.contour(X, Y, np.transpose(spectra),levels, colors='black')
     #plt.colorbar(mv_contourf)
-    plt.xlabel(r'Wavenumber [cm$^{-1}$]', fontsize = 16)
+    plt.xlabel(r'Wavenumber (cm$^{-1}$)', fontsize = 16)
     plt.xticks(fontsize = 14)
-    plt.ylabel(r'Temperature [C$^{o}$]', fontsize = 16)
+    plt.xlim(3100,700)
+    plt.ylabel(r'Temperature (K)', fontsize = 16)
     plt.yticks(fontsize = 14)
+    plt.ylim(305,365)
     plt.grid()
     plt.show()
     

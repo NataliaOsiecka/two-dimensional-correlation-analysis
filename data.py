@@ -9,7 +9,8 @@ Temperature information are reading from the txt file.
 import numpy
 import re
 
-filetxt = "6ba12_01.txt"
+filetxt = "epba.txt"
+#"6ba12_01.txt"
 
 #load IR data from the file
 def load_data(filename):
@@ -52,6 +53,20 @@ def load_temp(filename):
             temperature_value = get_temp_value(item)
             for item in temperature_value:
                 temperature.append(float(item))
+    return temperature[::-1]
+    
+def load_tempK(filename):
+    #reading all data from temperature file
+    with open(filename, 'r') as f:
+        temp_data = f.read().splitlines()
+    assert f.closed
+    #extracting only information with temperature
+    temperature = []
+    for item in temp_data:
+        if line_start_with_no(item):
+            temperature_value = get_temp_value(item)
+            for item in temperature_value:
+                temperature.append(float(item)+273.0)
     return temperature[::-1]
       
 def line_start_with_no(string_temp_data):
